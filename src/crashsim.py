@@ -62,8 +62,10 @@ def main():
   create_test(auto_dir, args.command, args.force, args.verbosity)
 
   # configuring the test
-  logging.debug("----------configuring test----------")
-  mutators = ["FutureTimeTest()", "ReverseTimeTest()", "NullMutator()",
+
+  # mutators is a list of mutators that is automatically applied to the
+  # application
+  mutators = ["ReverseTimeMutator()", "NullMutator()",
           "CrossdiskRenameMutator()", "UnusualFiletypeMutator()"]
 
   # looping through mutators to apply each mutator to the application
