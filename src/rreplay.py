@@ -319,7 +319,7 @@ def cleanup():
 
 
 
-def callRreplay(test_name, verbosity):
+def call_replay(test_name, verbosity):
   # ensure that a pre-existing pipe is unlinked before execution
   cleanup()
 
