@@ -13,6 +13,7 @@
 
 """
 
+import os
 import sys
 import argparse
 import subprocess
@@ -20,39 +21,17 @@ import logging
 from rrtest import create_test, configure_test, list_test, pack_test, analyze_test 
 from rreplay import call_replay
 
+import consts
+
 def main():
   # initialize parser
   parser = argparse.ArgumentParser()
-  subparser = parser.add_subparsers(metavar='MYTEST', help='name of test')
-
-
-  # if no arguments given
-  try:
-    sys.argv[1]
-  except:
-    parser.print_help()
-    sys.exit(1)
-
-  if sys.argv[1] == "-h":
-    parser.print_help()
-    sys.exit(1)
-
-  test_name = subparser.add_parser(sys.argv[1])
 
   # setting necessary flags
-  test_name.set_defaults(cmd=sys.argv[1])
-  test_name.add_argument('-m', '--mutator',
-                               dest='mutator',
-                               required=True,
-                               help='mutator to use')
-  test_name.add_argument('-c', '--command',
+  parser.add_argument('-c', '--command',
                                dest='command',
                                required=True,
                                help='specify command for rrtest')
-  test_name.add_argument('-f', '--force',
-                               dest='force',
-                               default='YES',
-                               help='force overwrite creation of the test')
 
   # general flags to be set
   parser.add_argument('-v', '--verbosity',
@@ -67,17 +46,34 @@ def main():
   # configure logger
   logging.basicConfig(level=args.verbosity)
 
+  # finding a free file name
+  index = 1
+  test_dir = consts.DEFAULT_CONFIG_PATH + "autotest"
+  while True:
+    if os.path.isdir(test_dir + str(index) + "/"):
+      index += 1
+    else:
+      break
+
+  auto_dir = "autotest" +  str(index) + "/"
+
   # creating the test
   logging.debug("----------creating test----------")
-  create_test(args.cmd, args.command, args.force, args.verbosity)
+  create_test(auto_dir, args.command, args.force, args.verbosity)
 
   # configuring the test
   logging.debug("----------configuring test----------")
-  configure_test(args.cmd, args.mutator, args.verbosity)
+  mutators = ["FutureTimeTest()", "ReverseTimeTest()", "NullMutator()",
+          "CrossdiskRenameMutator()", "UnusualFiletypeMutator()"]
+
+  # looping through mutators to apply each mutator to the application
+  for mutator in mutators:
+    configure_test(auto_dir, args.mutator, args.verbosity)
+
   
   # replay the test
   logging.debug("----------replaying test----------")
-  call_replay(args.cmd, args.verbosity)
+  call_replay(auto_dir, args.verbosity)
 
 if __name__ == "__main__":
   main()
