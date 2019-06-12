@@ -178,7 +178,6 @@ def configure_test(name, mutator, verbosity, trace_line=None, sniplen=5):
     #   if not args.__dict__[opt]:
     #     parser.print_help()
     #     sys.exit(1)
-    
     # if we specify a mutator, we cannot specify a traceline
     if mutator and trace_line:
         configure_group.print_help()
@@ -233,7 +232,7 @@ def configure_test(name, mutator, verbosity, trace_line=None, sniplen=5):
 
         identified_syscall_list_index = lines[j]
 
-        config.set("request_handling_process"+str(j + mutator_flag), "mutator", args.mutator)
+        config.set("request_handling_process"+str(j + mutator_flag), "mutator", mutator)
 
         # we must multiply by 2 here because the mutator is looking at a list
         # of parsed system call objects NOT the trace file itself.  This means
@@ -456,7 +455,6 @@ def main():
   else:
     parser.print_help()
     return 0
-
 
 if __name__ == '__main__':
   main()
