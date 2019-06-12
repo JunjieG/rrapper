@@ -65,8 +65,7 @@ def main():
 
   # mutators is a list of mutators that is automatically applied to the
   # application
-  mutators = ["ReverseTimeMutator()", "NullMutator()",
-          "CrossdiskRenameMutator()", "UnusualFiletypeMutator()"]
+  mutators = ["ReverseTimeMutator()", "CrossdiskRenameMutator()", "UnusualFiletypeMutator()"]
 
   # looping through mutators to apply each mutator to the application
   for mutator in mutators:
