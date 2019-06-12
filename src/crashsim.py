@@ -23,6 +23,8 @@ from rreplay import call_replay
 
 import consts
 
+import consts
+
 def main():
   # initialize parser
   parser = argparse.ArgumentParser()
@@ -54,7 +56,6 @@ def main():
       index += 1
     else:
       break
-
   auto_dir = "autotest" +  str(index) + "/"
 
   # creating the test
@@ -71,7 +72,6 @@ def main():
   for mutator in mutators:
     configure_test(auto_dir, args.mutator, args.verbosity)
 
-  
   # replay the test
   logging.debug("----------replaying test----------")
   call_replay(auto_dir, args.verbosity)
@@ -79,3 +79,4 @@ def main():
 if __name__ == "__main__":
   main()
   sys.exit(0)
+

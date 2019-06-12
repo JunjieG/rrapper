@@ -178,6 +178,7 @@ def configure_test(name, mutator, verbosity, trace_line=0, sniplen=5):
     #   if not args.__dict__[opt]:
     #     parser.print_help()
     #     sys.exit(1)
+
     # if we specify a mutator, we cannot specify a traceline
     if mutator and trace_line:
         print("You must not specifiy a trace line when you have specified a mutator.")
