@@ -363,7 +363,7 @@ def main():
   # parse arguments
   args = parser.parse_args()
 
-  callRreplay(args.testname, args.loglevel)
+  call_replay(args.testname, args.loglevel)
 
   
 

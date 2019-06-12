@@ -171,7 +171,7 @@ def create_test(name, command, force, verbosity):
       last_endchar = line[-1]
   return 1
 
-def configure_test(name, mutator, verbosity, trace_line=None, sniplen=5):
+def configure_test(name, mutator, verbosity, trace_line=0, sniplen=5):
     # The configure command requires a name be specified (obsolete)
     # man_options = ['name']
     # for opt in man_options:
@@ -180,7 +180,6 @@ def configure_test(name, mutator, verbosity, trace_line=None, sniplen=5):
     #     sys.exit(1)
     # if we specify a mutator, we cannot specify a traceline
     if mutator and trace_line:
-        configure_group.print_help()
         print("You must not specifiy a trace line when you have specified a mutator.")
         return 0
 
@@ -436,8 +435,8 @@ def main():
       sys.exit(1)
 
   elif args.cmd == 'configure':
-    if not (configure_test(args.name, args.mutator, args.trace_line, args.sniplen,
-        args.verbosity)):
+    if not (configure_test(args.name, args.mutator, args.verbosity,
+        args.trace_line, args.sniplen)):
       sys.exit(1)
 
   elif args.cmd == "list":
