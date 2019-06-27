@@ -26,7 +26,18 @@ import consts
 
 def main():
   # initialize parser
-  parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
+  parser = argparse.ArgumentParser(
+          formatter_class=argparse.RawDescriptionHelpFormatter,
+          description=('''
+  _____               _      _____ _
+ / ____|             | |    / ____(_)
+| |     _ __ __ _ ___| |__ | (___  _ _ __ ___
+| |    | '__/ _` / __| '_ \ \___ \| | '_ ` _ \\
+| |____| | | (_| \__ \ | | |____) | | | | | | |
+ \_____|_|  \__,_|___/_| |_|_____/|_|_| |_| |_|
+
+                  '''))
+
 
   # general flags to be set
   parser.add_argument('-v', '--verbosity',
@@ -99,7 +110,7 @@ def main():
   # configure logger
   logging.basicConfig(level=args.verbosity)
 
-  if args.explain != None and args.debug != None:
+  if args.explain == None and args.debug == None:
     # creating the test
     logging.debug("----------creating test----------")
     create_test(args.name, args.myapp, args.force, args.verbosity)
