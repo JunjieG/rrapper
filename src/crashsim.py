@@ -19,7 +19,6 @@ import subprocess
 import logging
 import create_test
 import configure_test
-# from rrtest import create_test, configure_test, list_test, pack_test, analyze_test 
 from rreplay import call_replay
 
 def main():

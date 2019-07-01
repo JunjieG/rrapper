@@ -12,14 +12,14 @@
   Incorporate module-wide configuration paths within a file.
 
   This file simply stores module-wide configuration constants that are used throughout
-  rrinit, rrtest, and rreplay.
+  rrinit, create_test, configure_test, and rreplay.
 
 """
 
 import os
 
 
-# represents folder where rrtest will create tests
+# represents folder where tests are created
 DEFAULT_CONFIG_PATH = str(os.path.dirname(os.path.expanduser("~") + "/.crashsim/")) + "/"
 
 # represents the folder where rr by default store its files
