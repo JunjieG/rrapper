@@ -17,7 +17,9 @@ import sys
 import argparse
 import subprocess
 import logging
-from rrtest import create_test, configure_test, list_test, pack_test, analyze_test 
+import create_test
+import configure_test
+# from rrtest import create_test, configure_test, list_test, pack_test, analyze_test 
 from rreplay import call_replay
 
 def main():
@@ -69,11 +71,11 @@ def main():
 
   # creating the test
   logging.debug("----------creating test----------")
-  create_test(args.cmd, args.command, args.force, args.verbosity)
+  create_test.create_test(args.cmd, args.command, args.force, args.verbosity)
 
   # configuring the test
   logging.debug("----------configuring test----------")
-  configure_test(args.cmd, args.mutator, args.verbosity)
+  configure_test.configure_test(args.cmd, args.mutator, args.verbosity)
   
   # replay the test
   logging.debug("----------replaying test----------")
