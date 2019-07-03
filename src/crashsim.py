@@ -99,7 +99,8 @@ def main():
         index += 1
       else:
         break
-    args.name = 'autotest' + str(index) + '/'
+    args.name = 'autotest' + str(index)
+    test_dir = consts.DEFAULT_CONFIG_PATH + args.name
 
   # Set of default mutators
   if args.mutator == None:
@@ -119,10 +120,16 @@ def main():
     # configuring the test
     logging.debug("----------configuring test----------")
     configure_test(args.name, args.mutator, args.verbosity)
-    
+   
+    if(os.path.islink(consts.DEFAULT_CONFIG_PATH + '.last_test')):
+      os.remove(consts.DEFAULT_CONFIG_PATH + '.last_test')  
+        
+    os.symlink(test_dir, consts.DEFAULT_CONFIG_PATH + '.last_test') 
+
     # replay the test
     logging.debug("----------replaying test----------")
     call_replay(args.name, args.verbosity)
+
 
 if __name__ == "__main__":
   main()
