@@ -19,12 +19,13 @@ class FsyncNoSpaceMutator(GenericMutator):
         syscalls[k].ret = (-1, 'ENOSPACE')
 
 
-  def identify_lines(self, syscalls):
-    lines = []
-    for k, v in enumerate(syscalls):
+  def identify_lines(self, tm, que):
+    while true:
+      v = self.next_syscall()
+      if v is None:
+        break
       if v.name == 'fsync':
         if self.name:
           if v.args[0].value != self.name:
             continue
-        lines.append(k)
-    return lines
+        self.opportunity_identified(i, que)

@@ -12,9 +12,11 @@ class FutureTimeMutator(GenericMutator):
         syscalls[k].ret = (syscalls[k].ret[0] + self.seconds, '')
 
 
-  def identify_lines(self, syscalls):
-    lines = []
-    for k, v in enumerate(syscalls):
+  def identify_lines(self, tm, que):
+    while true:
+      v = self.next_syscall()
+      if v is None:
+        break
       if v.name == 'time':
-        lines.append(k)
-    return lines
+        self.opportunity_identified(v, que)
+ 
